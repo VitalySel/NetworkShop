@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>My shops</title>
+    <meta charset="utf-8">
+    <!-- Custom fonts for this theme -->
+    <link th:href="@{/css/all.min.css}"  rel="stylesheet"  type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <!-- Theme CSS -->
+    <link th:href="@{/css/freelancer.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+
+</head>
+<body id="page-top">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg bg-secondary text-uppercase" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand " href="#page-top">Network of shops</a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/myshops}">Shops</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/mysuppliers}">Companies</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" class="btn btn-outline-light mt-2" value="Sign Out" />
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="page-section text-white mb-0" id="about">
+    <div class="container">
+
+        <!-- About Section Heading -->
+        <h2 class="text-center text-uppercase text-white mt-4" >Your Shop</h2>
+        <h2 class="text-center text-uppercase text-white mt-4"><a class="badge badge-primary" th:href="addShop">Add shop</a></h2>
+
+        <!-- About Section Content -->
+        <div class="d-flex justify-content-center">
+            <div class="align-self-center">
+                <div class="container text-center border border-primary rounded p-5">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col"><h5 class="text-uppercase text-white">ID</h5></th>
+                            <th scope="col"><h5 class="text-uppercase text-white">Name</h5></th>
+                            <th scope="col"><h5 class="text-uppercase text-white">Address</h5></th>
+                            <th scope="col"><h5 class="text-uppercase text-white">Phone</h5></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each ="shop : ${shops}">
+                            <th class="text-white" scope="row" th:utext="${shop.idShop}">...</th>
+                            <td><a class="text-white" th:href="@{'shop?shopid=' + ${shop.idShop}}" th:utext="${shop.Name}">...</a></td>
+                            <td><p class="text-white" th:utext="${shop.Address}">...</p></td>
+                            <td><p class="text-white" th:utext="${shop.Phone}">...</p></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Order</title>
+    <meta charset="utf-8">
+    <!-- Custom fonts for this theme -->
+    <link th:href="@{/css/all.min.css}"  rel="stylesheet"  type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <!-- Theme CSS -->
+    <link th:href="@{/css/freelancer.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body id="page-top">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg bg-secondary text-uppercase" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand " href="#page-top">Network of shops</a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/myshops}">Shops</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/mysuppliers}">Companies</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" class="btn btn-outline-light mt-2" value="Sign Out" />
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="page-section text-white mb-0" id="about">
+    <div class="container">
+
+        <!-- About Section Heading -->
+        <!-- About Section Content -->
+        <div class="d-flex h-100 justify-content-center">
+            <div class="align-self-center">
+                <div class="container text-center border border-primary rounded p-5">
+                    <h2 th:utext="@{'Order #' + ${supply[0].idOrder}}">...</h2>
+                    <br/>
+                    <h6 th:utext="@{'Description: ' + ${supply[0].Order_Text}}">...</h6>
+                    <h6 th:utext="@{'Placement Date: ' + ${supply[0].Placement_Date}}">...</h6>
+                    <h6 th:utext="@{'Shop: ' + ${shop[0].Name}}">...</h6>
+                    <h6 th:utext="@{'Supplier: ' + ${supply[0].Name}}">...</h6>
+                    <h6 th:if="${supply[0].Data_Start} != null" th:utext="@{'Supply start: ' + ${supply[0].Data_Start}}">...</h6>
+                    <h6 th:if="${supply[0].Data_Start} == null" th:utext="@{'Supply start: No information'}">...</h6>
+                    <h6 th:if="${supply[0].Data_End} != null" th:utext="@{'Supply end: ' + ${supply[0].Data_End}}">...</h6>
+                    <h6 th:if="${supply[0].Data_End} == null" th:utext="@{'Supply start: No information'}">...</h6>
+
+                    <br/>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="text-white" scope="col">Name</th>
+                            <th class="text-white" scope="col">Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each ="product : ${products}">
+                            <td><p class="text-white" th:utext="${product.name}">...</p></td>
+                            <td><p class="text-white" th:utext="${product.price}">...</p></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <h2 th:utext="@{'Total: ' + ${res[0].sum}}">...</h2>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--<body>
+<div class="d-flex h-100 justify-content-center">
+    <div class="align-self-center">
+        <div class="container text-center border border-primary rounded p-5">
+            <h2 th:utext="@{'Order #' + ${supply[0].idOrder}}">...</h2>
+            <br/>
+            <h6 th:utext="@{'Description: ' + ${supply[0].Order_Text}}">...</h6>
+            <h6 th:utext="@{'Placement Date: ' + ${supply[0].Placement_Date}}">...</h6>
+            <h6 th:utext="@{'Shop: ' + ${shop[0].Name}}">...</h6>
+            <h6 th:utext="@{'Supplier: ' + ${supply[0].Name}}">...</h6>
+            <h6 th:if="${supply[0].Data_Start} != null" th:utext="@{'Supply start: ' + ${supply[0].Data_Start}}">...</h6>
+            <h6 th:if="${supply[0].Data_Start} == null" th:utext="@{'Supply start: No information'}">...</h6>
+            <h6 th:if="${supply[0].Data_End} != null" th:utext="@{'Supply end: ' + ${supply[0].Data_End}}">...</h6>
+            <h6 th:if="${supply[0].Data_End} == null" th:utext="@{'Supply start: No information'}">...</h6>
+
+            <br/>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each ="product : ${products}">
+                    <td><p th:utext="${product.name}">...</p></td>
+                    <td><p th:utext="${product.price}">...</p></td>
+                </tr>
+                </tbody>
+            </table>
+            <br/>
+            <h2 th:utext="@{'Total: ' + ${res[0].sum}}">...</h2>
+
+        </div>
+    </div>
+</div>-->
+</body>
+</html>

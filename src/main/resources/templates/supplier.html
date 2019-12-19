@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Company products</title>
+    <meta charset="utf-8">
+    <!-- Custom fonts for this theme -->
+    <link th:href="@{/css/all.min.css}"  rel="stylesheet"  type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Theme CSS -->
+    <link th:href="@{/css/freelancer.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+
+</head>
+<body id="page-top">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg bg-secondary text-uppercase" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand " href="#page-top">Network of shops</a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/myshops}">Shops</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/mysuppliers}">Companies</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" class="btn btn-outline-light mt-2" value="Sign Out" />
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Masthead -->
+<section class="page-section text-white mb-0" id="about">
+    <div class="container">
+
+        <!-- About Section Heading -->
+        <h2 class="text-center text-uppercase text-white" >Page Products and Supplier</h2>
+
+        <!-- About Section Content -->
+        <div class="d-flex h-100 justify-content-center">
+            <div class="align-self-center">
+                <div class="container text-center border border-primary rounded p-5">
+                    <h1 class="white-text">Products</h1>
+                    <h2><a class="badge badge-primary" th:href="@{'addproduct?supplierid=' + ${supplier}}">Add product</a></h2>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col"><h5 class="text-uppercase text-white">Name</h5></th>
+                            <th scope="col"><h5 class="text-uppercase text-white">Description</h5></th>
+                            <th scope="col"><h5 class="text-uppercase text-white">Price</h5></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each ="product : ${products}">
+                            <td class="text-white" th:utext="${product.Product_Name}">...</td>
+                            <td class="text-white" th:utext="${product.Product_Description}">...</td>
+                            <td class="text-white" th:utext="${product.price}">...</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <br/>
+                    <h1 class="white-text">Supplies</h1>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col"><h5 class="text-uppercase text-white">SupplyID</h5></th>
+                            <th scope="col"><h5 class="text-uppercase text-white">Supply started</h5></th>
+                            <th scope="col"><h5 class="text-uppercase text-white">Supply end</h5></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each ="supply : ${supplies}">
+                            <td><a class="text-white" th:href="@{'order?orderid=' + ${supply.idOrder}}" th:utext="${supply.idSupply}">...</a></td>
+                            <td>
+                                <form th:if="${supply.Data_Start} == null" th:action="@{/startsupply}" method="post">
+                                    <input type="hidden" name="supplyid" th:value="@{${supply.idSupply}}" />
+                                    <button type="submit" class="btn btn-danger btn-sm">Start</button>
+                                </form>
+                                <p th:if="${supply.Data_Start} != null" th:utext="@{${supply.Data_Start}}">...</p>
+                            </td>
+
+                            <td th:if="${supply.Data_Start} != null">
+                                <form th:if="${supply.Data_End} == null" th:action="@{/endsupply}" method="post">
+                                    <input type="hidden" name="supplyid" th:value="@{${supply.idSupply}}" />
+                                    <button type="submit" class="btn btn-danger btn-sm">End</button>
+                                </form>
+                                <p th:if="${supply.Data_End} != null" th:utext="@{${supply.Data_End}}">...</p>
+                            </td>
+                            <td th:if="${supply.Data_Start} == null">
+                                <p th:if="${supply.Data_End} != null" th:utext="No information">...</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--<body>
+<div class="d-flex h-100 justify-content-center">
+    <div class="align-self-center">
+        <div class="container text-center border border-primary rounded p-5">
+            <h1>Products</h1>
+            <br />
+            <h2><a class="badge badge-primary" th:href="@{'addproduct?supplierid=' + ${supplier}}">Add product</a></h2>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each ="product : ${products}">
+                    <td th:utext="${product.Product_Name}">...</td>
+                    <td th:utext="${product.Product_Description}">...</td>
+                    <td th:utext="${product.price}">...</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <br/>
+            <h1>Supplies</h1>
+            <br />
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">SupplyID</th>
+                    <th scope="col">Supply started</th>
+                    <th scope="col">Supply end</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each ="supply : ${supplies}">
+                    <td><a th:href="@{'order?orderid=' + ${supply.idOrder}}" th:utext="${supply.idSupply}">...</a></td>
+                    <td>
+                        <form th:if="${supply.Data_Start} == null" th:action="@{/startsupply}" method="post">
+                            <input type="hidden" name="supplyid" th:value="@{${supply.idSupply}}" />
+                            <button type="submit" class="btn btn-danger btn-sm">Start</button>
+                        </form>
+                        <p th:if="${supply.Data_Start} != null" th:utext="@{${supply.Data_Start}}">...</p>
+                    </td>
+
+                    <td th:if="${supply.Data_Start} != null">
+                        <form th:if="${supply.Data_End} == null" th:action="@{/endsupply}" method="post">
+                            <input type="hidden" name="supplyid" th:value="@{${supply.idSupply}}" />
+                            <button type="submit" class="btn btn-danger btn-sm">End</button>
+                        </form>
+                        <p th:if="${supply.Data_End} != null" th:utext="@{${supply.Data_End}}">...</p>
+                    </td>
+                    <td th:if="${supply.Data_Start} == null">
+                        <p th:if="${supply.Data_End} != null" th:utext="No information">...</p>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>-->
+</body>
+</html>

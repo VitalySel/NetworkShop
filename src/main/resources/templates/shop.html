@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Shop orders</title>
+    <meta charset="utf-8">
+    <!-- Custom fonts for this theme -->
+    <link th:href="@{/css/all.min.css}"  rel="stylesheet"  type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Theme CSS -->
+    <link th:href="@{/css/freelancer.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+</head>
+
+<body id="page-top">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg bg-secondary text-uppercase" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand " href="#page-top">Network of shops</a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/myshops}">Shops</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/mysuppliers}">Companies</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" class="btn btn-outline-light mt-2" value="Sign Out" />
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Masthead -->
+<section class="page-section text-white mb-0" id="about">
+    <div class="container">
+
+        <!-- About Section Heading -->
+        <h2 class="text-center text-uppercase text-white" >Shop Orders</h2>
+
+        <!-- About Section Content -->
+        <div class="d-flex h-100 justify-content-center">
+            <div class="align-self-center">
+                <div class="container text-center border border-primary rounded p-5">
+                    <h2 class="white-text"><a class="badge badge-primary" th:href="@{'choosesupplier?shopid=' + ${shop}}">Add order</a></h2>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col"><h5 class="text-uppercase text-white">ID</h5></th>
+                            <th scope="col"><h5 class="text-uppercase text-white">Description</h5></th>
+                            <th scope="col"><h5 class="text-uppercase text-white">Product Count</h5></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each ="order : ${orders}">
+                            <td><a class="text-white" th:href="@{'order?orderid=' + ${order.idOrder}}" th:utext="${order.idOrder}">...</a></td>
+                            <td class="text-white" th:utext="${order.Order_Text}">...</td>
+                            <td class="text-white" th:utext="${order.count}">...</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--<body>
+<div class="d-flex h-100 justify-content-center">
+    <div class="align-self-center">
+        <div class="container text-center border border-primary rounded p-5">
+            <h1>Orders</h1>
+            <br />
+            <h2><a class="badge badge-primary" th:href="@{'choosesupplier?shopid=' + ${shop}}">Add order</a></h2>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Products count</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each ="order : ${orders}">
+                    <td><a th:href="@{'order?orderid=' + ${order.idOrder}}" th:utext="${order.idOrder}">...</a></td>
+                    <td th:utext="${order.Order_Text}">...</td>
+                    <td th:utext="${order.count}">...</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>-->
+</body>
+</html>

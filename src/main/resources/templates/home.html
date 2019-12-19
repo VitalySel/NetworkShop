@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+
+        <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">-->
+        <title>Network of shops</title>
+
+        <meta charset="utf-8">
+
+        <!-- Custom fonts for this theme -->
+        <link th:href="@{/css/all.min.css}"  rel="stylesheet"  type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+        <!-- Theme CSS -->
+        <link th:href="@{/css/freelancer.min.css}" rel="stylesheet" type="text/css">
+        <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+        <!--<style>
+            body,html {
+            height: 100%;
+}
+        </style>-->
+    </head>
+    <body id="page-top">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand " href="#page-top">Network of shops</a>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item mx-0 mx-lg-1">
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/}">Home</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1">
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/myshops}">Shops</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1">
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/mysuppliers}">Companies</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1">
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded " th:if="${isadmin} == 1" th:href="@{/admin}">Admin</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Masthead -->
+        <section class="page-section text-white mb-0" id="about">
+            <div class="container">
+
+                <!-- About Section Heading -->
+                <h2 class="text-center text-uppercase text-white mt-5" >About System</h2>
+
+                <!-- Icon Divider -->
+                <div class="divider-custom divider-light">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="divider-custom-line"></div>
+                </div>
+
+                <!-- About Section Content -->
+                <div class="row">
+                    <div class="col-lg-4 ml-auto">
+                        <p class="lead">If you are the owner of the store, you can place an order for the goods you are interested
+                            in and the supplier will take this into account</p>
+                </div>
+                    <div class="col-lg-4 mr-auto">
+                        <p class="lead">If you are the owner of the delivery company, you can choose the order of interest
+                            from the store and start delivery</p>
+                    </div>
+                </div>
+
+                <!-- About Section Button -->
+                <div class="text-center mt-5">
+                    <a class="btn btn-xl btn-outline-light" th:href="@{/myshops}">
+                        <i class="fas fa-download mr-2"></i>
+                        Add Shop
+                    </a>
+                    <a class="btn btn-xl btn-outline-light" th:href="@{/mysuppliers}">
+                        <i class="fas fa-download mr-2"></i>
+                        Add Company
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <!--<div class="d-flex h-100 justify-content-center">
+                <div class="align-self-center">
+                    <div class="container text-center border border-primary rounded p-5">
+                        <h1>Hello!</h1>
+                        <br />
+                        <h2><a class="badge badge-primary" th:href="@{/myshops}">My shops</a></h2>
+                        <h2><a class="badge badge-secondary" th:href="@{/mysuppliers}">My companies</a></h2>
+                    </div>
+                </div>
+        </div>-->
+
+
+    </body>
+</html>
