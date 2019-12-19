@@ -15,18 +15,7 @@ public class Shop {
         this.jdbcTemplate = new JdbcTemplate(this.dataSource);
     }
 
-    public List getShopName() {
-        return jdbcTemplate.queryForList("SELECT Name from shop");
-    }
-    public List getShopAddres() {
-        return jdbcTemplate.queryForList("SELECT Address from shop");
-    }
-    public List getShopPhone() {
-        return jdbcTemplate.queryForList("SELECT Phone from shop");
-    }
-    public List getShopUserId() {
-        return jdbcTemplate.queryForList("SELECT User_idUser from shop");
-    }
+
     public void create(String name, String address, String phone, int userId){
         jdbcTemplate.execute("INSERT INTO shop VALUES (null, '" +name+ "','"+address+"','"+phone+"',"+ userId + ");");
         jdbcTemplate.execute("INSERT INTO logging VALUES (null, CONCAT('Added shop, name="+name+"'), NOW());");

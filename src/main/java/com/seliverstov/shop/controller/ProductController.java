@@ -48,7 +48,7 @@ public class ProductController {
     public String addProduct(@RequestParam String supplierid, @RequestParam String productid,@RequestParam String price) {
         double parsePrice = Double.parseDouble(price);
         if (parsePrice < 0){
-            return "406";
+            return "405";
         }
         Product product = new Product(dataSource);
         product.add(supplierid,productid,price);

@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
-
-        <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">-->
         <title>Network of shops</title>
-
         <meta charset="utf-8">
-
         <!-- Custom fonts for this theme -->
         <link th:href="@{/css/all.min.css}"  rel="stylesheet"  type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -17,11 +12,7 @@
         <!-- Theme CSS -->
         <link th:href="@{/css/freelancer.min.css}" rel="stylesheet" type="text/css">
         <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-        <!--<style>
-            body,html {
-            height: 100%;
-}
-        </style>-->
+
     </head>
     <body id="page-top">
         <!-- Navigation -->
@@ -39,8 +30,13 @@
                         <li class="nav-item mx-0 mx-lg-1">
                             <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/mysuppliers}">Companies</a>
                         </li>
-                        <li class="nav-item mx-0 mx-lg-1">
-                            <a class="nav-link py-3 px-0 px-lg-3 rounded " th:if="${isadmin} == 1" th:href="@{/admin}">Admin</a>
+                        <li sec:authorize ="hasRole('ROLE_ADMIN')"class="nav-item mx-0 mx-lg-1">
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/admin}">Admin</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()" class="nav-item mx-0 mx-lg-1">
+                            <form th:action="@{/logout}" method="post">
+                                <input type="submit" class="btn btn-outline-light mt-2" value="Sign Out" />
+                            </form>
                         </li>
                     </ul>
                 </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Order</title>
     <meta charset="utf-8">
@@ -31,6 +31,9 @@
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/mysuppliers}">Companies</a>
                 </li>
+                <li sec:authorize ="hasRole('ROLE_ADMIN')"class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/admin}">Admin</a>
+                </li>
                 <li class="nav-item mx-0 mx-lg-1">
                     <form th:action="@{/logout}" method="post">
                         <input type="submit" class="btn btn-outline-light mt-2" value="Sign Out" />
@@ -48,7 +51,7 @@
         <!-- About Section Content -->
         <div class="d-flex h-100 justify-content-center">
             <div class="align-self-center">
-                <div class="container text-center border border-primary rounded p-5">
+                <div class="container text-center border border-primary rounded">
                     <h2 th:utext="@{'Order #' + ${supply[0].idOrder}}">...</h2>
                     <br/>
                     <h6 th:utext="@{'Description: ' + ${supply[0].Order_Text}}">...</h6>
@@ -83,41 +86,5 @@
         </div>
     </div>
 </section>
-<!--<body>
-<div class="d-flex h-100 justify-content-center">
-    <div class="align-self-center">
-        <div class="container text-center border border-primary rounded p-5">
-            <h2 th:utext="@{'Order #' + ${supply[0].idOrder}}">...</h2>
-            <br/>
-            <h6 th:utext="@{'Description: ' + ${supply[0].Order_Text}}">...</h6>
-            <h6 th:utext="@{'Placement Date: ' + ${supply[0].Placement_Date}}">...</h6>
-            <h6 th:utext="@{'Shop: ' + ${shop[0].Name}}">...</h6>
-            <h6 th:utext="@{'Supplier: ' + ${supply[0].Name}}">...</h6>
-            <h6 th:if="${supply[0].Data_Start} != null" th:utext="@{'Supply start: ' + ${supply[0].Data_Start}}">...</h6>
-            <h6 th:if="${supply[0].Data_Start} == null" th:utext="@{'Supply start: No information'}">...</h6>
-            <h6 th:if="${supply[0].Data_End} != null" th:utext="@{'Supply end: ' + ${supply[0].Data_End}}">...</h6>
-            <h6 th:if="${supply[0].Data_End} == null" th:utext="@{'Supply start: No information'}">...</h6>
-
-            <br/>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Price</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each ="product : ${products}">
-                    <td><p th:utext="${product.name}">...</p></td>
-                    <td><p th:utext="${product.price}">...</p></td>
-                </tr>
-                </tbody>
-            </table>
-            <br/>
-            <h2 th:utext="@{'Total: ' + ${res[0].sum}}">...</h2>
-
-        </div>
-    </div>
-</div>-->
 </body>
 </html>

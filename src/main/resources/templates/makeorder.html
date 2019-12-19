@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Make order</title>
     <link th:href="@{/css/all.min.css}"  rel="stylesheet"  type="text/css">
@@ -29,6 +29,9 @@
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/mysuppliers}">Companies</a>
                 </li>
+                <li sec:authorize ="hasRole('ROLE_ADMIN')"class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/admin}">Admin</a>
+                </li>
                 <li class="nav-item mx-0 mx-lg-1">
                     <form th:action="@{/logout}" method="post">
                         <input type="submit" class="btn btn-outline-light mt-2" value="Sign Out" />
@@ -48,7 +51,7 @@
         <!-- About Section Content -->
         <div class="d-flex justify-content-center">
             <div class="align-self-center">
-                <div class="container text-center border border-primary rounded p-5">
+                <div class="container text-center border border-primary rounded">
                     <form th:action="@{/makeorder}" method="post">
                         <select multiple size="3" class="custom-select" name="productid[]" id="productid">
                             <th:block th:each ="product : ${products}">
@@ -70,31 +73,5 @@
         </div>
     </div>
 </section>
-
-<!--<body>
-<div class="d-flex h-100 justify-content-center">
-    <div class="align-self-center">
-        <div class="container text-center border border-primary rounded p-5">
-            <form th:action="@{/makeorder}" method="post">
-                <h1>Choose products</h1>
-
-                <select multiple size="3" class="custom-select" name="productid[]" id="productid">
-                    <th:block th:each ="product : ${products}">
-                        <option th:value="@{${product.idProduct}}" th:utext="${product.Product_Name}  + ' ' + ${product.price}">...</option>
-                    </th:block>
-                </select>
-                <br/>
-                <div class="form-group">
-                    <label for="ordertext">Text</label>
-                    <input type="text" class="form-control" id="ordertext" placeholder="Describe your order" name="ordertext">
-                </div>
-                <input type="hidden" name="supplierid" th:value="@{${supplier}}" />
-                <input type="hidden" name="shopid" th:value="@{${shop}}" />
-                <br/>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    </div>
-</div>-->
 </body>
 </html>

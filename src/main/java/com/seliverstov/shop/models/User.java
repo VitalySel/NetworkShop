@@ -36,13 +36,6 @@ public class User {
         return username;
     }
 
-    public List getEmail(){
-       return jdbcTemplate.queryForList("SELECT Email from user");
-    }
-    public List getuserName(){
-        return jdbcTemplate.queryForList("SELECT Username from user");
-    }
-
     public int getId(){
         return getIdByUsername(getUsername());
     }
@@ -56,9 +49,6 @@ public class User {
         return jdbcTemplate.queryForList("SELECT * FROM user");
     }
 
-    public List getRole(){
-        return jdbcTemplate.queryForList("SELECT User_idUser from role");
-    }
 
     public void makeAdmin(String userid){
         jdbcTemplate.execute("INSERT INTO role VALUES(null,'ROLE_ADMIN'," + userid + ");");

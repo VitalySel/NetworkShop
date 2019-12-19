@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Add product</title>
     <meta charset="utf-8">
@@ -30,6 +30,9 @@
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/mysuppliers}">Companies</a>
                 </li>
+                <li sec:authorize ="hasRole('ROLE_ADMIN')"class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/admin}">Admin</a>
+                </li>
                 <li class="nav-item mx-0 mx-lg-1">
                     <form th:action="@{/logout}" method="post">
                         <input type="submit" class="btn btn-outline-light mt-2" value="Sign Out" />
@@ -45,12 +48,12 @@
 
         <!-- About Section Heading -->
         <h2 class="text-center text-uppercase text-white" >Choose product</h2>
-        <h2 class="text-center text-uppercase text-white"><a class="badge badge-primary" th:href="@{/createProduct}">Add product</a></h2>
+        <h2 class="text-center text-uppercase text-white"><a class="btn btn-outline-light" th:href="@{/createProduct}">Add product</a></h2>
 
         <!-- About Section Content -->
         <div class="d-flex justify-content-center">
             <div class="align-self-center">
-                <div class="container text-center border border-primary rounded p-5">
+                <div class="container text-center border border-primary rounded ">
                     <form th:action="@{/addproduct}" method="post">
                         <select size="3" class="custom-select" name="productid" id="productid">
                             <th:block th:each ="product : ${products}">

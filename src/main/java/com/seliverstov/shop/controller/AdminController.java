@@ -1,5 +1,7 @@
 package com.seliverstov.shop.controller;
 
+import com.seliverstov.shop.models.Logging;
+import com.seliverstov.shop.repository.LoggingRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,12 +11,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.seliverstov.shop.models.User;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Controller
 public class AdminController {
 
     @Autowired
     DataSource dataSource;
+    @Autowired
+    LoggingRepositoryImpl loggingRepository;
 
     @RequestMapping(value="/admin")
     public String admin(){
@@ -32,5 +37,19 @@ public class AdminController {
         User user = new User(dataSource);
         user.makeAdmin(userid);
         return "redirect:/";
+    }
+
+    @RequestMapping(value={"/logging"} ,method = RequestMethod.GET)
+    public String getLogg(Model model){
+        List logg = loggingRepository.getLogging();
+        model.addAttribute("loggs",logg);
+        return "logging";
+    }
+
+    @RequestMapping(value = {"/user"}, method = RequestMethod.GET)
+    public String getUsers(Model model) {
+        User user = new User(dataSource);
+        model.addAttribute("users",user.getAllUsers());
+        return "user";
     }
 }

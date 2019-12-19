@@ -18,14 +18,20 @@ public class UserRepositoryImpl implements UserRepository<User> {
     }
 
     @Override
-    public List findByUsername(String username) {
+    public List findByUsername() {
         List usrname =  jdbcOperations.queryForList("Select Username from user");
         return usrname;
     }
 
     @Override
-    public List findByEmail(String email) {
+    public List findByEmail() {
         List eml = jdbcOperations.queryForList("Select Email from user");
         return eml;
+    }
+
+    @Override
+    public List getRole() {
+        List role = jdbcOperations.queryForList("SELECT User_idUser from role");
+        return role;
     }
 }

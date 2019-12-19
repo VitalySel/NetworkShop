@@ -51,31 +51,14 @@
         <!-- About Section Content -->
         <div class="d-flex justify-content-center">
             <div class="align-self-center">
-                <div class="container text-center border border-primary rounded p-5">
-                    <h2><a class="badge badge-primary text-white" th:href="@{/createProduct}">Create product</a></h2>
-                    <h2><a class="badge badge-primary text-white" th:href="@{/makeadmin}">Make admin</a></h2>
-                    <br />
-                    <form th:action="@{/logout}" method="post">
-                        <input type="submit" class="btn btn-outline-light mt-2" value="Sign Out" />
-                    </form>
+                <div class="container text-center border border-primary rounded">
+                    <h2><a class="btn btn-outline-light " th:href="@{/createProduct}">Create product</a></h2>
+                    <h2><a class="btn btn-outline-light " th:href="@{/user}">Users</a></h2>
+                    <h2><a class="btn btn-outline-light " th:href="@{/logging}">Logging</a></h2>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!--<body>
-<div class="d-flex h-100 justify-content-center">
-    <div class="align-self-center">
-        <div class="container text-center border border-primary rounded p-5">
-            <h1>Admin panel</h1>
-            <h2><a class="badge badge-primary" th:href="@{/createProduct}">Create product</a></h2>
-            <h2><a class="badge badge-primary" th:href="@{/makeadmin}">Make admin</a></h2>
-            <br />
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" class="btn btn-danger" value="Sign Out" />
-            </form>
-        </div>
-    </div>
-</div>-->
 </body>
 </html>

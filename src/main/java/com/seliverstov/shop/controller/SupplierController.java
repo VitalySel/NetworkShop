@@ -67,14 +67,14 @@ public class SupplierController {
     public String startSupply(@RequestParam String supplyid) {
         Supply supply = new Supply(dataSource);
         supply.startSupply(supplyid);
-        return "redirect:/";
+        return "redirect:/mysuppliers";
     }
 
     @RequestMapping(value = {"/endsupply" }, method = RequestMethod.POST)
     public String endSupply(@RequestParam String supplyid) {
         Supply supply = new Supply(dataSource);
         supply.endSupply(supplyid);
-        return "redirect:/";
+        return "redirect:/mysuppliers";
     }
 
     @RequestMapping(value = {"/choosesupplier"}, method = RequestMethod.GET)

@@ -3,17 +3,18 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Choose supplier</title>
+    <title>Logging</title>
     <meta charset="utf-8">
     <!-- Custom fonts for this theme -->
     <link th:href="@{/css/all.min.css}"  rel="stylesheet"  type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
     <!-- Theme CSS -->
     <link th:href="@{/css/freelancer.min.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-
 </head>
+
 <body id="page-top">
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg bg-secondary text-uppercase" id="mainNav">
@@ -43,27 +44,32 @@
     </div>
 </nav>
 
+<!-- Masthead -->
 <section class="page-section text-white mb-0" id="about">
     <div class="container">
 
         <!-- About Section Heading -->
-        <h2 class="text-center text-uppercase text-white" >Choose supplier</h2>
+        <h2 class="text-center text-uppercase text-white" >Logging</h2>
 
         <!-- About Section Content -->
-        <div class="d-flex h-100 justify-content-center">
+        <div class="d-flex justify-content-center">
             <div class="align-self-center">
                 <div class="container text-center border border-primary rounded">
-                    <form th:action="@{/choosesupplier}" method="post">
-                        <select size="3" class="custom-select" name="supplier" id="supplier">
-                            <th:block th:each ="supplier : ${suppliers}">
-                                <option th:value="@{${supplier.idSupplier}}" th:utext="${supplier.Name}">...</option>
-                            </th:block>
-                        </select>
-                        <br/>
-                        <input type="hidden" name="shop" th:value="@{${shopid}}" />
-                        <br/>
-                        <button type="submit" class="btn btn-outline-light mt-2">Choose</button>
-                    </form>
+                    <table class="table">
+                        <thead>
+                            <th scope="col"><h5 class="text-uppercase text-white">ID</h5></th>
+                            <th scope="col"><h5 class="text-uppercase text-white">Text</h5></th>
+                            <th scope="col"><h5 class="text-uppercase text-white">Time</h5></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each ="logg : ${loggs}">
+                            <td class="text-white" th:utext="${logg.idLogging}">...</td>
+                            <td class="text-white" th:utext="${logg.Log_Text}">...</td>
+                            <td class="text-white" th:utext="${logg.Log_time}">...</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Add shop</title>
     <meta charset="utf-8">
@@ -30,6 +30,9 @@
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/mysuppliers}">Companies</a>
                 </li>
+                <li sec:authorize ="hasRole('ROLE_ADMIN')"class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/admin}">Admin</a>
+                </li>
                 <li class="nav-item mx-0 mx-lg-1">
                     <form th:action="@{/logout}" method="post">
                         <input type="submit" class="btn btn-outline-light mt-2" value="Sign Out" />
@@ -49,7 +52,7 @@
         <!-- About Section Content -->
         <div class="d-flex justify-content-center">
             <div class="align-self-center">
-                <div class="container text-center border border-primary rounded p-5">
+                <div class="container text-center border border-primary rounded">
                     <form th:action="@{/addShop}" method="post">
                         <div class="form-group">
                             <label for="shopname">Name</label>
@@ -70,20 +73,5 @@
         </div>
     </div>
 </section>
-<!--<body>
-<form th:action="@{/addShop}"
-      method="POST">
-    Name:
-    <input type="text" name="shopname" id="shopname" />
-    <br/>
-    Address:
-    <input type="text" name="address" id="address" />
-    <br/>
-    Phone:
-    <input type="text" name="phone" id="phone" />
-    <br/>
-    <input type="submit" value="Create" />
-</form>-->
-
 </body>
 </html>

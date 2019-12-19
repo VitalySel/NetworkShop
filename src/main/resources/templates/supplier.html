@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Company products</title>
     <meta charset="utf-8">
@@ -31,6 +31,9 @@
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/mysuppliers}">Companies</a>
                 </li>
+                <li sec:authorize ="hasRole('ROLE_ADMIN')"class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/admin}">Admin</a>
+                </li>
                 <li class="nav-item mx-0 mx-lg-1">
                     <form th:action="@{/logout}" method="post">
                         <input type="submit" class="btn btn-outline-light mt-2" value="Sign Out" />
@@ -51,9 +54,9 @@
         <!-- About Section Content -->
         <div class="d-flex h-100 justify-content-center">
             <div class="align-self-center">
-                <div class="container text-center border border-primary rounded p-5">
+                <div class="container text-center border border-primary rounded">
                     <h1 class="white-text">Products</h1>
-                    <h2><a class="badge badge-primary" th:href="@{'addproduct?supplierid=' + ${supplier}}">Add product</a></h2>
+                    <h2><a class="btn btn-outline-light" th:href="@{'addproduct?supplierid=' + ${supplier}}">Add product</a></h2>
 
                     <table class="table">
                         <thead>
@@ -88,7 +91,7 @@
                             <td>
                                 <form th:if="${supply.Data_Start} == null" th:action="@{/startsupply}" method="post">
                                     <input type="hidden" name="supplyid" th:value="@{${supply.idSupply}}" />
-                                    <button type="submit" class="btn btn-danger btn-sm">Start</button>
+                                    <button type="submit" class="btn btn-warning">Start</button>
                                 </form>
                                 <p th:if="${supply.Data_Start} != null" th:utext="@{${supply.Data_Start}}">...</p>
                             </td>
@@ -96,7 +99,7 @@
                             <td th:if="${supply.Data_Start} != null">
                                 <form th:if="${supply.Data_End} == null" th:action="@{/endsupply}" method="post">
                                     <input type="hidden" name="supplyid" th:value="@{${supply.idSupply}}" />
-                                    <button type="submit" class="btn btn-danger btn-sm">End</button>
+                                    <button type="submit" class="btn btn-warning">End</button>
                                 </form>
                                 <p th:if="${supply.Data_End} != null" th:utext="@{${supply.Data_End}}">...</p>
                             </td>
@@ -111,69 +114,5 @@
         </div>
     </div>
 </section>
-<!--<body>
-<div class="d-flex h-100 justify-content-center">
-    <div class="align-self-center">
-        <div class="container text-center border border-primary rounded p-5">
-            <h1>Products</h1>
-            <br />
-            <h2><a class="badge badge-primary" th:href="@{'addproduct?supplierid=' + ${supplier}}">Add product</a></h2>
-
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Price</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each ="product : ${products}">
-                    <td th:utext="${product.Product_Name}">...</td>
-                    <td th:utext="${product.Product_Description}">...</td>
-                    <td th:utext="${product.price}">...</td>
-                </tr>
-                </tbody>
-            </table>
-
-            <br/>
-            <h1>Supplies</h1>
-            <br />
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">SupplyID</th>
-                    <th scope="col">Supply started</th>
-                    <th scope="col">Supply end</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each ="supply : ${supplies}">
-                    <td><a th:href="@{'order?orderid=' + ${supply.idOrder}}" th:utext="${supply.idSupply}">...</a></td>
-                    <td>
-                        <form th:if="${supply.Data_Start} == null" th:action="@{/startsupply}" method="post">
-                            <input type="hidden" name="supplyid" th:value="@{${supply.idSupply}}" />
-                            <button type="submit" class="btn btn-danger btn-sm">Start</button>
-                        </form>
-                        <p th:if="${supply.Data_Start} != null" th:utext="@{${supply.Data_Start}}">...</p>
-                    </td>
-
-                    <td th:if="${supply.Data_Start} != null">
-                        <form th:if="${supply.Data_End} == null" th:action="@{/endsupply}" method="post">
-                            <input type="hidden" name="supplyid" th:value="@{${supply.idSupply}}" />
-                            <button type="submit" class="btn btn-danger btn-sm">End</button>
-                        </form>
-                        <p th:if="${supply.Data_End} != null" th:utext="@{${supply.Data_End}}">...</p>
-                    </td>
-                    <td th:if="${supply.Data_Start} == null">
-                        <p th:if="${supply.Data_End} != null" th:utext="No information">...</p>
-                    </td>
-
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>-->
 </body>
 </html>

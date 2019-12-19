@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Shop orders</title>
     <meta charset="utf-8">
@@ -31,6 +31,9 @@
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/mysuppliers}">Companies</a>
                 </li>
+                <li sec:authorize ="hasRole('ROLE_ADMIN')"class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/admin}">Admin</a>
+                </li>
                 <li class="nav-item mx-0 mx-lg-1">
                     <form th:action="@{/logout}" method="post">
                         <input type="submit" class="btn btn-outline-light mt-2" value="Sign Out" />
@@ -49,10 +52,10 @@
         <h2 class="text-center text-uppercase text-white" >Shop Orders</h2>
 
         <!-- About Section Content -->
-        <div class="d-flex h-100 justify-content-center">
+        <div class="d-flex justify-content-center">
             <div class="align-self-center">
-                <div class="container text-center border border-primary rounded p-5">
-                    <h2 class="white-text"><a class="badge badge-primary" th:href="@{'choosesupplier?shopid=' + ${shop}}">Add order</a></h2>
+                <div class="container text-center border border-primary rounded">
+                    <h2 class="white-text"><a class="btn btn-outline-light" th:href="@{'choosesupplier?shopid=' + ${shop}}">Add order</a></h2>
 
                     <table class="table">
                         <thead>
@@ -75,32 +78,5 @@
         </div>
     </div>
 </section>
-<!--<body>
-<div class="d-flex h-100 justify-content-center">
-    <div class="align-self-center">
-        <div class="container text-center border border-primary rounded p-5">
-            <h1>Orders</h1>
-            <br />
-            <h2><a class="badge badge-primary" th:href="@{'choosesupplier?shopid=' + ${shop}}">Add order</a></h2>
-
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Products count</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each ="order : ${orders}">
-                    <td><a th:href="@{'order?orderid=' + ${order.idOrder}}" th:utext="${order.idOrder}">...</a></td>
-                    <td th:utext="${order.Order_Text}">...</td>
-                    <td th:utext="${order.count}">...</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>-->
 </body>
 </html>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.seliverstov.shop.models.User;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Controller
 public class RegistrationController {
@@ -32,8 +33,9 @@ public class RegistrationController {
 
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public String register(@RequestParam String username,@RequestParam String password,@RequestParam String email){
-
-        if (userRepo.findByUsername(username) != null || username == "" || password=="" || userRepo.findByEmail(email)!=null || email == ""){
+        List nameUser = userRepo.findByUsername();
+        List emailUser = userRepo.findByEmail();
+        if (username == "" || password=="" || email == "" || nameUser.contains(username) || emailUser.contains(email)){
             return "406";
         }
         User user = new User(dataSource);
