@@ -9,5 +9,4 @@ public interface ShopRepository <P extends Shop> {
     List findByName();
     List findByPhone();
     List findByAddress();
-
 }
