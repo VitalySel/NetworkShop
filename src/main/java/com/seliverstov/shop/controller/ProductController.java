@@ -27,9 +27,14 @@ public class ProductController {
 
     @RequestMapping(value = {"/createProduct" }, method = RequestMethod.POST)
     public String createProduct(@RequestParam String productname, @RequestParam String desc) {
+
+
         List nameProduct = productRepository.findByNameProduct();
         if (productname == "" || nameProduct.contains(productname)){
             return "406";
+        }
+        else if (ServiceController.checkPunct(productname)){
+            return "404";
         }
         Product product = new Product(dataSource);
         product.create(productname,desc);
@@ -46,9 +51,8 @@ public class ProductController {
 
     @RequestMapping(value = {"/addproduct" }, method = RequestMethod.POST)
     public String addProduct(@RequestParam String supplierid, @RequestParam String productid,@RequestParam String price) {
-        double parsePrice = Double.parseDouble(price);
-        if (parsePrice < 0){
-            return "405";
+        if (!ServiceController.checkPrice(price) || ServiceController.CheckPriceNegative(price)){
+            return "404";
         }
         Product product = new Product(dataSource);
         product.add(supplierid,productid,price);

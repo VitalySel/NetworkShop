@@ -40,8 +40,11 @@ public class ShopController {
         List name = shopRepository.findByName();
         List phoneShop = shopRepository.findByPhone();
         List shopAddress = shopRepository.findByAddress();
-        if (shopname == "" || phone == "" || address == "" || name.contains(shopname) || phoneShop.contains(phone) || shopAddress.contains(address) ){
+        if (shopname == "" || phone == "" || address == "" || name.contains(shopname) || phoneShop.contains(phone) || shopAddress.contains(address)){
             return "406";
+        }
+        if (!ServiceController.checkPunct(shopname) || !ServiceController.checkPhone(phone)){
+            return "404";
         }
         User user = new User(dataSource);
         int id = user.getId();

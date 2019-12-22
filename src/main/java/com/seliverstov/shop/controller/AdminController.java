@@ -1,6 +1,7 @@
 package com.seliverstov.shop.controller;
 
 import com.seliverstov.shop.models.Logging;
+import com.seliverstov.shop.models.Supply;
 import com.seliverstov.shop.repository.LoggingRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,16 @@ public class AdminController {
         User user = new User(dataSource);
         user.makeAdmin(userid);
         return "redirect:/";
+    }
+
+    @RequestMapping(value = {"/statistic"}, method = RequestMethod.GET)
+    public String getStatistic(Model model) {
+        Supply supply = new Supply(dataSource);
+        model.addAttribute("stats",supply.getSupplyStartDate());
+        model.addAttribute("all",supply.getSupplyCount());
+        model.addAttribute("start",supply.getSupplyDataStartN());
+        model.addAttribute("end",supply.getSupplyEndStartN());
+        return "statistic";
     }
 
     @RequestMapping(value={"/logging"} ,method = RequestMethod.GET)

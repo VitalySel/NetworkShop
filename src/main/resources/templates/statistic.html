@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Admin Panel</title>
+    <title>Logging</title>
     <meta charset="utf-8">
     <!-- Custom fonts for this theme -->
     <link th:href="@{/css/all.min.css}"  rel="stylesheet"  type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
     <!-- Theme CSS -->
     <link th:href="@{/css/freelancer.min.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-
 </head>
-
 
 <body id="page-top">
 <!-- Navigation -->
@@ -32,6 +31,9 @@
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/mysuppliers}">Companies</a>
                 </li>
+                <li sec:authorize ="hasRole('ROLE_ADMIN')"class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded " th:href="@{/admin}">Admin</a>
+                </li>
                 <li class="nav-item mx-0 mx-lg-1">
                     <form th:action="@{/logout}" method="post">
                         <input type="submit" class="btn btn-outline-light mt-2" value="Sign Out" />
@@ -42,20 +44,33 @@
     </div>
 </nav>
 
+<!-- Masthead -->
 <section class="page-section text-white mb-0" id="about">
     <div class="container">
 
         <!-- About Section Heading -->
-        <h2 class="text-center text-uppercase text-white" >Admin Page</h2>
+        <h2 class="text-center text-uppercase text-white" >Statistic</h2>
 
         <!-- About Section Content -->
         <div class="d-flex justify-content-center">
             <div class="align-self-center">
                 <div class="container text-center border border-primary rounded">
-                    <h2><a class="btn btn-outline-light " th:href="@{/createProduct}">Create product</a></h2>
-                    <h2><a class="btn btn-outline-light " th:href="@{/user}">Users</a></h2>
-                    <h2><a class="btn btn-outline-light " th:href="@{/logging}">Logging</a></h2>
-                    <h2><a class="btn btn-outline-light " th:href="@{/statistic}">Statistic</a></h2>
+                    <h6 th:utext="@{'Всего поставок: ' + ${all[0].cdata}}">...</h6>
+                    <h6 th:utext="@{'Отправлено: ' + ${start[0].cdata}}">...</h6>
+                    <h6 th:utext="@{'Завершено: ' + ${end[0].cdata}}">...</h6>
+                    <table class="table">
+                        <thead>
+                        <th scope="col"><h5 class="text-uppercase text-white">Дата начала поставки</h5></th>
+                        <th scope="col"><h5 class="text-uppercase text-white">Кол-во поставок</h5></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each ="stat : ${stats}">
+                            <td class="text-white" th:utext="${stat.Data_Start}">...</td>
+                            <td class="text-white" th:utext="${stat.cdata}">...</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
