@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Shop orders</title>
+    <title>Logging</title>
     <meta charset="utf-8">
     <!-- Custom fonts for this theme -->
     <link th:href="@{/css/all.min.css}"  rel="stylesheet"  type="text/css">
@@ -49,31 +49,49 @@
     <div class="container">
 
         <!-- About Section Heading -->
-        <h2 class="text-center text-uppercase text-white" >Shop Orders</h2>
+        <h2 class="text-center text-uppercase text-white" >Filtration</h2>
 
         <!-- About Section Content -->
         <div class="d-flex justify-content-center">
             <div class="align-self-center">
                 <div class="container text-center border border-primary rounded">
-                    <h2 class="white-text"><a class="btn btn-outline-light" th:href="@{'choosesupplier?shopid=' + ${shop}}">Add order</a></h2>
+                    
+                    <form th:action="@{/filtration}" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="filter" placeholder="Describe month" name="filter">
+                            <input type="hidden" name="supplierid" th:value="@{${supplier}}" />
+                        </div>
+                        <button type="submit" class="btn btn-outline-light mt-2">Filter</button>
+                    </form>
 
-                    <table class="table">
+
+                    <table class="table mt-2">
                         <thead>
-                        <tr>
-                            <th scope="col"><h5 class="text-uppercase text-white">ID</h5></th>
-                            <th scope="col"><h5 class="text-uppercase text-white">Description</h5></th>
-                            <th scope="col"><h5 class="text-uppercase text-white">Product Count</h5></th>
+                        <th scope="col"><h5 class="text-uppercase text-white">Delivery start date</h5></th>
+                        <th scope="col"><h5 class="text-uppercase text-white">Count</h5></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each ="order : ${orders}">
-                            <td><a class="text-white" th:href="@{'order?orderid=' + ${order.idOrder}}" th:utext="${order.idOrder}">...</a></td>
-                            <td class="text-white" th:utext="${order.Order_Text}">...</td>
-                            <td class="text-white" th:utext="${order.count}">...</td>
+                        <tr th:each ="stat : ${stats}">
+                            <td th:if="${stat.Data_Start} != null" class="text-white" th:utext="${stat.Data_Start}">...</td>
+                            <td th:if="${stat.Data_Start} != null" class="text-white" th:utext="${stat.cdata}">...</td>
                         </tr>
                         </tbody>
                     </table>
-                    <h2 class="white-text"><a class="btn btn-outline-light" th:href="@{'shopstatistic?shopid=' + ${shop}}">Statistic</a></h2>
+                    <table class="table">
+                        <thead>
+                        <th scope="col"><h5 class="text-uppercase text-white">Delivery end date</h5></th>
+                        <th scope="col"><h5 class="text-uppercase text-white">Count</h5></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each ="stat : ${statsend}">
+                            <td th:if="${stat.Data_End} != null" class="text-white" th:utext="${stat.Data_End}">...</td>
+                            <td th:if="${stat.Data_End} != null" class="text-white" th:utext="${stat.cdata}">...</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <input type="hidden" name="supplierid" th:value="@{${supplier}}" />
                 </div>
             </div>
         </div>

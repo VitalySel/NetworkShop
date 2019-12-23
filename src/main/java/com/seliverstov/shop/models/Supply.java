@@ -29,11 +29,15 @@ public class Supply {
     }
 
     public List getSupplyDataStartN(){
-        return jdbcTemplate.queryForList("SELECT count(*) cdata FROM networkstore.supply s WHERE s.Data_Start IS NULL");
+        return jdbcTemplate.queryForList("SELECT count(*) cdata FROM networkstore.supply s WHERE s.Data_End IS NULL");
     }
 
     public List getSupplyEndStartN(){
         return jdbcTemplate.queryForList("SELECT count(*) cdata FROM networkstore.supply s WHERE s.Data_Start IS NOT NULL AND s.Data_End IS NOT NULL");
+    }
+
+    public List getSupplyConsideration() {
+        return jdbcTemplate.queryForList("SELECT count(*) cdata FROM networkstore.supply s WHERE s.Data_Start IS NULL");
     }
 
     public void startSupply(String supplyid){
@@ -45,6 +49,5 @@ public class Supply {
     public void endSupply(String supplyid){
         jdbcTemplate.execute("UPDATE networkstore.supply s SET s.Data_End=CURRENT_DATE() WHERE s.idSupply="+supplyid);
         jdbcTemplate.execute("INSERT INTO logging VALUES (null, CONCAT('Ended suppling, supplyid="+supplyid+"'), NOW());");
-
     }
 }

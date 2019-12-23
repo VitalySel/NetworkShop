@@ -32,4 +32,28 @@ public class Supplier {
     public List getSupplierProducts(int supplierid){
         return jdbcTemplate.queryForList("SELECT p.idProduct, p.Product_Name, p.Product_Description, sp.price FROM supplierproducts sp JOIN product p ON p.idProduct = sp.idProduct WHERE idSupplier="+supplierid);
     }
+    public List getCurrentSupplyCount(int supplierId) {
+        return jdbcTemplate.queryForList("SELECT count(*) cdata FROM networkstore.supply s WHERE s.idSupplier="+supplierId);
+    }
+    public List getCurrentSupplyDataStart(int supplierId) {
+        return jdbcTemplate.queryForList("SELECT count(*) cdata FROM networkstore.supply s WHERE s.Data_End IS NULL && s.idSupplier="+supplierId);
+    }
+    public List getCurrentSupplyDataEnd(int supplierId) {
+        return jdbcTemplate.queryForList("SELECT count(*) cdata FROM networkstore.supply s WHERE s.Data_Start IS NOT NULL AND s.Data_End IS NOT NULL && s.idSupplier=" +supplierId);
+    }
+    public List getCurrentSupplyStartEnd(int supplierId) {
+        return jdbcTemplate.queryForList("SELECT s.Data_Start, count(s.Data_Start) cdata FROM networkstore.supply s WHERE s.idSupplier="+supplierId+ " GROUP BY s.Data_Start");
+    }
+    public List getCurrentSupplyEnd(int supplierId) {
+        return jdbcTemplate.queryForList("SELECT s.Data_End, count(s.Data_End) cdata FROM networkstore.supply s WHERE s.idSupplier="+supplierId+ " GROUP BY s.Data_End");
+    }
+    public List getCurrentSupplyConsideration(int supplierId) {
+        return jdbcTemplate.queryForList("SELECT count(*) cdata FROM networkstore.supply s WHERE s.Data_Start IS NULL && s.idSupplier=" +supplierId);
+    }
+    public List getFilterStartData(int supplierId, int filter) {
+        return jdbcTemplate.queryForList("SELECT s.Data_Start, count(S.Data_Start) cdata FROM networkstore.supply s WHERE s.idSupplier = "+supplierId+" && month(s.Data_Start)="+filter);
+    }
+    public List getFilterEndData(int supplierId, int filter) {
+        return jdbcTemplate.queryForList("SELECT s.Data_End, count(S.Data_End) cdata FROM networkstore.supply s WHERE s.idSupplier = "+supplierId+" && month(s.Data_End)="+filter);
+    }
 }

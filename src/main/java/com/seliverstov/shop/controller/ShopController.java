@@ -58,6 +58,22 @@ public class ShopController {
         Shop shop = new Shop(dataSource);
         model.addAttribute("orders",shop.getShopOrders(shopid));
         model.addAttribute("shop",shopid);
+
         return "shop";
+    }
+
+    @RequestMapping(value = {"/shopstatistic"}, method = RequestMethod.GET)
+    public String getShopStatistic(@RequestParam String shopid, Model model) {
+        Shop shop = new Shop(dataSource);
+        model.addAttribute("shop",shopid);
+        model.addAttribute("all",shop.getCountOrders(shopid));
+        model.addAttribute("consideration",shop.getConsiderationOrders(shopid));
+        model.addAttribute("start",shop.getStartOrders(shopid));
+        model.addAttribute("end",shop.getEndOrders(shopid));
+        model.addAttribute("statstart",shop.getDataStartOrders(shopid));
+        model.addAttribute("statsend",shop.getDataEndOrders(shopid));
+        model.addAttribute("total",shop.getTotalPrice(shopid));
+
+        return "shopstatistic";
     }
 }

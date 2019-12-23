@@ -55,13 +55,14 @@
         <div class="d-flex justify-content-center">
             <div class="align-self-center">
                 <div class="container text-center border border-primary rounded">
-                    <h6 th:utext="@{'Всего поставок: ' + ${all[0].cdata}}">...</h6>
-                    <h6 th:utext="@{'Отправлено: ' + ${start[0].cdata}}">...</h6>
-                    <h6 th:utext="@{'Завершено: ' + ${end[0].cdata}}">...</h6>
+                    <h6 th:utext="@{'All: ' + ${all[0].cdata}}">...</h6>
+                    <h6 th:utext="@{'Under consideration: ' + ${consideration[0].cdata}}">...</h6>
+                    <h6 th:utext="@{'Sent: ' + ${start[0].cdata}}">...</h6>
+                    <h6 th:utext="@{'Completed: ' + ${end[0].cdata}}">...</h6>
                     <table class="table">
                         <thead>
-                        <th scope="col"><h5 class="text-uppercase text-white">Дата начала поставки</h5></th>
-                        <th scope="col"><h5 class="text-uppercase text-white">Кол-во поставок</h5></th>
+                        <th scope="col"><h5 class="text-uppercase text-white">Delivery start date</h5></th>
+                        <th scope="col"><h5 class="text-uppercase text-white">Count</h5></th>
                         </tr>
                         </thead>
                         <tbody>

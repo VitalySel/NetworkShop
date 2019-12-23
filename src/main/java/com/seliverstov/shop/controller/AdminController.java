@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.seliverstov.shop.models.User;
 
+import javax.jws.WebParam;
 import javax.sql.DataSource;
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class AdminController {
         model.addAttribute("stats",supply.getSupplyStartDate());
         model.addAttribute("all",supply.getSupplyCount());
         model.addAttribute("start",supply.getSupplyDataStartN());
+        model.addAttribute("consideration",supply.getSupplyConsideration());
         model.addAttribute("end",supply.getSupplyEndStartN());
         return "statistic";
     }

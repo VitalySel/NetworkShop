@@ -14,9 +14,10 @@ public class ServiceController {
     }
 
     static public boolean checkPhone(String phone) {
-        Pattern p = Pattern.compile("/^(\\s*)?(\\+)?([- _():=+]?\\d[- _():=+]?){10,14}(\\s*)?$/");
+        Pattern p = Pattern.compile("[0-9\\\\+]");
         Matcher m = p.matcher(phone);
-        return m.matches();
+        if (m.find()) return true;
+        else return false;
     }
 
     static public boolean checkPrice(String price) {

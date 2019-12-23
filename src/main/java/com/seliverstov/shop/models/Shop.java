@@ -32,4 +32,25 @@ public class Shop {
     public List getShopOrders(String shopid){
         return jdbcTemplate.queryForList("SELECT o.idOrder, o.Order_Text, (SELECT COUNT(*) FROM productlist p WHERE p.Order_idOrder = o.idOrder) count FROM networkstore.order o WHERE o.idShop="+shopid+";");
     }
+    public List getCountOrders(String shopid) {
+        return jdbcTemplate.queryForList("SELECT count(*) ord FROM networkstore.order o WHERE o.idShop ="+shopid);
+    }
+    public List getConsiderationOrders(String shopid) {
+        return jdbcTemplate.queryForList("SELECT count(*) ord FROM networkstore.order o, supply s WHERE o.idShop ="+shopid +" && s.idSupply = o.idSupply && s.Data_Start IS NULL");
+    }
+    public List getStartOrders(String shopid) {
+        return jdbcTemplate.queryForList("SELECT count(*) ord FROM networkstore.order o, supply s WHERE o.idShop ="+shopid +" && s.idSupply = o.idSupply && s.Data_End IS NULL");
+    }
+    public List getEndOrders(String shopid) {
+        return jdbcTemplate.queryForList("SELECT count(*) ord FROM networkstore.order o, supply s WHERE o.idShop ="+shopid +" && s.idSupply = o.idSupply && s.Data_Start IS NOT NULL && s.Data_End IS NOT NULL");
+    }
+    public List getDataStartOrders(String shopid){
+        return jdbcTemplate.queryForList("SELECT s.Data_Start, count(s.Data_Start) cdata FROM networkstore.order o, supply s WHERE o.idShop ="+shopid +" && s.idSupply = o.idSupply GROUP BY s.Data_Start");
+    }
+    public List getDataEndOrders(String shopid){
+        return jdbcTemplate.queryForList("SELECT s.Data_End, count(s.Data_End) cdata FROM networkstore.order o, supply s WHERE o.idShop ="+shopid +" && s.idSupply = o.idSupply GROUP BY s.Data_End");
+    }
+    public List getTotalPrice(String shopid) {
+        return jdbcTemplate.queryForList("SELECT SUM(sl.price) sum FROM networkstore.order o, productlist pl, product p, supplierproducts sl WHERE o.idShop = "+shopid+" && pl.Order_idOrder = o.idOrder && p.idProduct = pl.Product_idProduct && sl.idProduct = pl.Product_idProduct");
+    }
 }

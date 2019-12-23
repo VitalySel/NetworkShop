@@ -89,4 +89,51 @@ public class SupplierController {
     public String chooseSupplier(@RequestParam String shop, @RequestParam String supplier) {
         return "redirect:/makeorder?supplierid="+supplier+"&shopid="+shop;
     }
+
+    @RequestMapping(value = {"/supplierstatistic"}, method = RequestMethod.GET)
+    public String statisticSupplier(@RequestParam String supplierid,Model model) {
+        Supplier supplier = new Supplier(dataSource);
+        model.addAttribute("supplier",supplierid);
+        model.addAttribute("all", supplier.getCurrentSupplyCount(Integer.parseInt(supplierid)));
+        model.addAttribute("start",supplier.getCurrentSupplyDataStart(Integer.parseInt(supplierid)));
+        model.addAttribute("end",supplier.getCurrentSupplyDataEnd(Integer.parseInt(supplierid)));
+        model.addAttribute("stats",supplier.getCurrentSupplyStartEnd(Integer.parseInt(supplierid)));
+        model.addAttribute("statsend",supplier.getCurrentSupplyEnd(Integer.parseInt(supplierid)));
+        model.addAttribute("consideration",supplier.getCurrentSupplyConsideration(Integer.parseInt(supplierid)));
+        return "supplierstatistic";
+    }
+    @RequestMapping(value = {"/filtration"}, method = RequestMethod.GET)
+    public String getFiltration(@RequestParam String supplierid,Model model) {
+        Supplier supplier = new Supplier(dataSource);
+        model.addAttribute("supplier",supplierid);
+        model.addAttribute("all", supplier.getCurrentSupplyCount(Integer.parseInt(supplierid)));
+        model.addAttribute("start",supplier.getCurrentSupplyDataStart(Integer.parseInt(supplierid)));
+        model.addAttribute("end",supplier.getCurrentSupplyDataEnd(Integer.parseInt(supplierid)));
+        model.addAttribute("stats",supplier.getCurrentSupplyStartEnd(Integer.parseInt(supplierid)));
+        model.addAttribute("statsend",supplier.getCurrentSupplyEnd(Integer.parseInt(supplierid)));
+        model.addAttribute("consideration",supplier.getCurrentSupplyConsideration(Integer.parseInt(supplierid)));
+        return "filtration";
+    }
+
+    @RequestMapping(value = {"/filtration"}, method = RequestMethod.POST)
+    public String filter(@RequestParam String supplierid, @RequestParam String filter, Model model) {
+        Supplier supplier = new Supplier(dataSource);
+        if (filter != null && filter != "") {
+
+            model.addAttribute("supplier", supplierid);
+            model.addAttribute("stats", supplier.getFilterStartData(Integer.parseInt(supplierid), Integer.parseInt(filter)));
+            model.addAttribute("statsend",supplier.getFilterEndData(Integer.parseInt(supplierid), Integer.parseInt(filter)));
+        }
+        else{
+            model.addAttribute("supplier",supplierid);
+            model.addAttribute("all", supplier.getCurrentSupplyCount(Integer.parseInt(supplierid)));
+            model.addAttribute("start",supplier.getCurrentSupplyDataStart(Integer.parseInt(supplierid)));
+            model.addAttribute("end",supplier.getCurrentSupplyDataEnd(Integer.parseInt(supplierid)));
+            model.addAttribute("stats",supplier.getCurrentSupplyStartEnd(Integer.parseInt(supplierid)));
+            model.addAttribute("statsend",supplier.getCurrentSupplyEnd(Integer.parseInt(supplierid)));
+            model.addAttribute("consideration",supplier.getCurrentSupplyConsideration(Integer.parseInt(supplierid)));
+        }
+        return "filtration";
+    }
+
 }
